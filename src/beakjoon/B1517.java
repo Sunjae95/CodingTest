@@ -1,59 +1,121 @@
 package beakjoon;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class B1517 {
-	static int stoi(String s) {return Integer.parseInt(s);}
 	static int cnt=0;
+	static int n;
+	static long[] arr;
+	static long[] tmp;
 	
-	static void mergeSort(int[] arr) {
-		sort(arr, 0,arr.length);
-	}
-	
-	static void sort(int[] arr, int start,int end) {
-		if(start<end) {
+	static void mergeSort(int start,int end) {
+		if(start!=end) {
 			int mid=(start+end)/2;
-			sort(arr,start,mid);
-			sort(arr,mid,end);
-			merge(arr,start,mid,end);
+			mergeSort(start,mid);
+			mergeSort( mid+1, end);	//배열인덱스 끝까지 mergeSort해서 mid+1함
+			sort(start,end);
 		}
 	}
-	
-	static void merge(int[] arr,int start, int mid,int end) {
-		int[] temp=new int[end-start];
-		int t=0, s=start, e=mid;
-		while(s<mid&&e<end) {
-			if(arr[s]<=arr[e]) {
-				temp[t++]=arr[s++];
-				cnt++;
+	static void sort(int start,int end) {
+		int mid=(start+end)/2;
+		int s=start, e=mid+1, t=start;
+		tmp=new long[end];	//배열인덱스로 받았기에 +1을 해줌
+		while(s<=mid&&e<=end) {	//한쪽 배열이 완성되면 break
+			if(arr[s]>arr[e]) {
+				tmp[t++]=arr[e++];
+				cnt+=mid-s+1;	//오른쪽 인덱스가 앞으로오려면 왼쪽인덱스 수만큼 앞으로 가야되기때문
 			}else {
-				temp[t++]=arr[e++];
-				cnt++;
+				tmp[t++]=arr[s++];
 			}
 		}
-		while(s<mid) {
-			temp[t++]=arr[s++];
+		//남아있는 수 정리
+		if(s>mid) {
+			while(e<=end) {
+				tmp[t++]=arr[e++];
+			}
+		}else {
+			while(s<=mid) {
+				tmp[t++]=arr[s++];
+			}
 		}
-		while(e<end) {
-			temp[t++]=arr[e++];
-		}
-		for(int i=start;i<end;i++) {
-			arr[i]=temp[i-start];
+		//다시 arr에 담기
+		for(int i=0;i<=tmp.length;i++) {
+			arr[i+start]=tmp[i];
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
+	
+	
+	
+	public static void main(String[] args) throws IOException {
 		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		int n=stoi(br.readLine());
-		int[] arr=new int[n];
-		st=new StringTokenizer(br.readLine());
-		for(int i=0;i<n;i++) 	arr[i]=stoi(st.nextToken());
-		mergeSort(arr);
+		//입력
+		n=Integer.parseInt(br.readLine());
+		arr=new long[n];
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		for(int i=0;i<n;i++) 	arr[i]=Long.parseLong(st.nextToken());
+		mergeSort(0,arr.length-1);
 		System.out.print(cnt);
 	}
-	
 }
-//merge sort까지 됐지만 cnt를 세는 방법을 모르겠음
+//내가한코드
+//
+//
+//
+//
+//
+//public class B1517 {
+//	static int cnt=0;
+//	
+//	static void mergeSort(int[] arr,int start,int end) {
+//		if(start!=end) {
+//			int mid=(start+end)/2;
+//			mergeSort(arr,start,mid);
+//			mergeSort(arr, mid+1, end);	//배열인덱스 끝까지 mergeSort해서 mid+1함
+//			sort(arr,start,mid,end);
+//		}
+//	}
+//	static void sort(int[] arr,int start,int mid,int end) {
+//		int s=start, e=mid+1, t=0;
+//		int[] tmp=new int[end+1];	//배열인덱스로 받았기에 +1을 해줌
+//		while(s<=mid&&e<=end) {	//한쪽 배열이 완성되면 break
+//			if(arr[s]>arr[e]) {
+//				tmp[t++]=arr[e++];
+//				cnt+=mid-s+1;	//오른쪽 인덱스가 앞으로오려면 왼쪽인덱스 수만큼 앞으로 가야되기때문
+//			}else {
+//				tmp[t++]=arr[s++];
+//			}
+//		}
+//		//남아있는 수 정리
+//		if(s>mid) {
+//			while(e<=end) {
+//				tmp[t++]=arr[e++];
+//			}
+//		}else {
+//			while(s<=mid) {
+//				tmp[t++]=arr[s++];
+//			}
+//		}
+//		//다시 arr에 담기
+//		for(int i=start;i<=end;i++) {
+//			arr[i]=tmp[i];
+//		}
+//	}
+//	
+//	
+//	
+//	
+//	public static void main(String[] args) throws IOException {
+//		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+//		//입력
+//		int n=Integer.parseInt(br.readLine());
+//		int[] arr=new int[n];
+//		StringTokenizer st=new StringTokenizer(br.readLine());
+//		for(int i=0;i<n;i++) 	arr[i]=Integer.parseInt(st.nextToken());
+//		mergeSort(arr,0,arr.length-1);
+//		System.out.print(cnt);
+//	}
+//}
