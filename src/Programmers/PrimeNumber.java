@@ -3,42 +3,33 @@ package Programmers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class PrimeNumber {
 	static int cnt=0;
 	
-	static void find(String[] arr, int n,String before) {
-		before+=arr[n];	//글자 추가
-		String st=arr[n];
-		arr[n]=null;	//추가후 체크
-		int tmp=Integer.parseInt(before);	//숫자로 변환
-		
-		for(int i=2;i<=tmp;i++) {	//소수 판별
-			if(tmp==i) {
-				cnt++;
-			}	
-			if(tmp%i==0) break;
+	static void count(String numbers,String tmp) {
+		for(int i=0;i<numbers.length();i++) {
+			tmp+=numbers.charAt(i);
+			String origin=numbers.substring(0, i)+numbers.substring(i+1, numbers.length());
+			System.out.println(tmp);
+			count(origin,tmp);	
+			tmp.substring(tmp.length()-1,tmp.length());
 		}
-		for(int i=0;i<arr.length;i++) {
-			if(arr[i]!=null) find(arr,i,before);
-		}
-		arr[n]=st;	//다시 되돌려놔야됨
-		return;
 	}
+
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
 		//입력
-		String str=br.readLine();
-		String[] s;
-		
-		s=str.split("");	//한글자씩 배열에 저장
-		for(int i=0;i<s.length;i++) {
-			find(s,i,"");
-		}
-		System.out.print(cnt);
+		String numbers=br.readLine();
+		count(numbers, "");
 	}
 
 }
+
+//1.모든 숫자의 조합(너무어려움)
+//2.각 숫자가 소수가 맞는지 확인
 
 //ex abcd가입력
 //a-b-c-d
@@ -56,3 +47,5 @@ public class PrimeNumber {
 //이런식으로 현재 글자에서 다음 글자를 합치면서 올려야된다고 생각함
 //처음 글자 받아옴(한번사용했다고 체크) 소수인지 확인 맞으면 cnt++
 //for문을 통해 체크안된 글자 더하기
+//앞자리가 0일때 못함
+//중복된 수가 나올경우 같이 카운팅돼서 실패..
