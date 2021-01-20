@@ -14,7 +14,10 @@
 
 ## sort
 [버블 소트](https://www.acmicpc.net/problem/1517)
+[K번째 수](https://programmers.co.kr/learn/courses/30/lessons/42748)
 
+# greedy-algorithm
+[체육복](https://programmers.co.kr/learn/courses/30/lessons/42862)
 ## dynamic-Programing
 [피보나치 함수](https://www.acmicpc.net/problem/1003)  
 [피보나치 수5](https://www.acmicpc.net/problem/10870)  
