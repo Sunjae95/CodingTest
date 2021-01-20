@@ -23,3 +23,6 @@ function solution(n, lost, reserve) {
     }
     return answer;
 }
+
+const ss = {};
+console.log(typeof ss);
