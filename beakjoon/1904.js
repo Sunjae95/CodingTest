@@ -5,7 +5,7 @@ let input = fs
   .split(" ")
   .map(function(a) {
     return +a
-  })
+  });
 
 let dp = Array(input+1).fill(0);
 dp[1] = 1;
