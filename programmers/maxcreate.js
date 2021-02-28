@@ -30,8 +30,8 @@ function solution(number, k) {
     //     console.log(pre, cur, index);
     //     return pre>cur ? pre:cur;
     // })
-    const a = 'adfsa';
-    a.reduce((pre, cur) => {
-        console.log(pre, cur);
-        return pre + cur;
-    })
+    // const a = 'adfsa';
+    // a.reduce((pre, cur) => {
+    //     console.log(pre, cur);
+    //     return pre + cur;
+    // })
