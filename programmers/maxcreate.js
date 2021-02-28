@@ -19,7 +19,7 @@ function solution(number, k) {
         end++;
         t--;
     }
-
+}
 
     //     return answer;
     // }
