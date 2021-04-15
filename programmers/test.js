@@ -1,9 +1,23 @@
-class a {
-    constructor(a){
-        const b = 1;
-        this.b = b;
-        this.b = 5;
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    
+    attack() {
+        console.log('animal attack');
     }
 }
-const c = new a(2);
-console.log(c);
+
+class Lion extends Animal {
+    constructor(name, color) {
+        super(name);
+        this.color = color;
+    }
+
+    attack() {
+        console.log('lion attack');
+    }
+}
+
+const lion = new Lion('leo', 'white');
+lion.attack();
