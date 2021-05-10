@@ -16,13 +16,13 @@ const stack = [];
 
 console.log(NGF.join(" "));
 
-// arr.forEach((element, index) => {
-//   for (let i = index; i <= Number(N); i++) {
-//     if (Fa[element] < Fa[arr[i]]) {
-//       NGF[index] = Number(arr[i]);
-//       break;
-//     }
-//   }
-// });
+arr.forEach((element, index) => {
+  for (let i = index; i <= Number(N); i++) {
+    if (Fa[element] < Fa[arr[i]]) {
+      NGF[index] = Number(arr[i]);
+      break;
+    }
+  }
+});
 
-//시간 초과
+// 시간 초과
