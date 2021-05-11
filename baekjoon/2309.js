@@ -16,3 +16,6 @@ for (let i = 0; i < arr.length; i++) {
   }
 }
 result.forEach((i) => console.log(i));
+
+//i, j 범위를 수정해주기
+//for문을 돌리는 이유는 한명씩 빼기위함
