@@ -62,3 +62,28 @@ function getPermutation3(arr, r, tmp, res) {
 }
 const check = new Set();
 console.log(getPermutation3(test,3,[],[]));
+
+// 순열 재귀
+// n: 1~n까지 checked:빈배열 arr: 임시로 담을 배열
+const answer = [];
+function permutation(n, checked, arr) {
+  if (arr.length === n) {
+    const tmp = [];
+    arr.forEach((element) => {
+      tmp.push(element);
+    });
+    answer.push(tmp);
+    return;
+  }
+
+  for (let i = 1; i <= n; i++) {
+    if (!checked[i]) {
+      checked[i] = true;
+      arr.push(i);
+      permutation(n, checked, arr);
+      arr.pop();
+      checked[i] = false;
+    }
+  }
+}
+permutation(n, checked, []);
