@@ -109,7 +109,6 @@ class MinHeap {
       const parentNode = this.node[parentIndex];
       //부모가 더 작을 경우 바로 종료
       if (parentNode <= childNode) return;
-      //   if (parentNode > childNode) return; //최대힙
       else {
         //그렇지 않으면 자리 바꾸기
         this.node[index] = parentNode;
@@ -138,27 +137,19 @@ class MinHeap {
     const length = this.node.length;
     let minimumIndex = index;
     if (!this.node[leftChildIndex] && !this.node[rightChildIndex]) return; //자식이 없을 경우
+    //왼쪽 자식만 있을 경우
     if (!this.node[rightChildIndex]) {
-      //왼쪽 자식만 있을 경우
-      //   if (this.node[leftChildIndex] > this.node[minimumIndex]) { //최대힙
       if (this.node[leftChildIndex] < this.node[minimumIndex]) {
         minimumIndex = leftChildIndex;
       }
     }
     //둘다 있지만 둘 중 더 작은값을 찾아 바꾸는 경우
-    // if (this.node[leftChildIndex] < this.node[rightChildIndex]) { //최대힙
-
     if (this.node[leftChildIndex] > this.node[rightChildIndex]) {
       //오른자식이 더 작을 때
       if (
         rightChildIndex <= length &&
         this.node[rightChildIndex] < this.node[minimumIndex]
       ) {
-        //   if (
-        //     rightChildIndex <= length &&
-        //     this.node[rightChildIndex] > this.node[minimumIndex]
-        //   ) {
-        //     // 최대힙
         minimumIndex = rightChildIndex;
       }
     } else {
@@ -167,11 +158,6 @@ class MinHeap {
         leftChildIndex <= length &&
         this.node[leftChildIndex] < this.node[minimumIndex]
       ) {
-        //   if (
-        //     leftChildIndex <= length &&
-        //     this.node[leftChildIndex] > this.node[minimumIndex]
-        //   ) {    //최대힙
-
         minimumIndex = leftChildIndex;
       }
     }
