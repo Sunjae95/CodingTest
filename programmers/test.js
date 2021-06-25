@@ -1,56 +1,12 @@
-function solution(cacheSize, cities) {
-  if (cacheSize === 0) return cities.length * 5;
+function solution(arr){
+  const count = new Array(101).fill(0);
 
-  const caching = cities.reduce(
-    (prev, beforeCity) => {
-      const [cache, time] = prev;
-      const city = beforeCity.toUpperCase();
+  arr.forEach(num => {
+    count[num]++;
+  });
 
-      if (cache.size < cacheSize) {
-        const [changedCache, runningTime] = isRowCached(cache, city);
-        return [changedCache, prev[1] + runningTime];
-      }
-      const [changedCache, runningTime] = isFullCached(cache, city);
-      return [changedCache, prev[1] + runningTime];
-    },
-    [new Map(), 0]
-  );
-
-  return caching[1];
+  const result = count.filter(value=> value>1);
+  return result.length === 0 ? [-1] : result;
 }
 
-function isRowCached(cache, city) {
-  if (cache.has(city)) {
-    cache.delete(city);
-    cache.set(city, null);
-    return [cache, 1];
-  }
-  cache.set(city, null);
-  return [cache, 5];
-}
-
-function isFullCached(cache, city) {
-  if (cache.has(city)) {
-    cache.delete(city);
-    cache.set(city, null);
-    return [cache, 1];
-  }
-  cache.delete([...cache][0][0]);
-  cache.set(city, null);
-  return [cache, 5];
-}
-
-console.log(
-  solution(3, [
-    "Jeju",
-    "Pangyo",
-    "Seoul",
-    "NewYork",
-    "LA",
-    "Jeju",
-    "Pangyo",
-    "Seoul",
-    "NewYork",
-    "LA",
-  ])
-);
+console.log(solution([3,5,7,9,1]))
