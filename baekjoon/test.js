@@ -1,38 +1,63 @@
 // const fs = require("fs");
 // // const inputs = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 // const inputs = fs.readFileSync("input").toString().trim().split("\r\n");
+function solution(total, me, rival) {
+  const league = createLeague(total, me, rival);
+  const answer = startLeague(total, league);
 
-//시간초과
-
-function solution(orders, courses) {
-  var answer = [];
-  const set = new Set();
-  orders.forEach((order) => {
-    const tmp = order.split("");
-    courses.forEach((course) => {
-      if (tmp.length >= course) {
-        const tt = getCombination(tmp, course);
-        
-      }
-    });
-  });
   return answer;
 }
 
-function getCombination(order, course) {
-  const result = [];
-  if (course === 1) return order.map((v) => [v]);
+const player = {
+  me: "A",
+  rival: "B",
+  other: "C",
+};
 
-  order.forEach((fixed, index, arr) => {
-    const rest = arr.slice(index + 1);
-    const combinations = getCombination(rest, course - 1);
-    const attached = combinations.map((combination) =>
-      [fixed, ...combination].join("")
-    );
-    result.push(...attached);
-  });
+function createLeague(total, me, rival) {
+  const league = new Array(total + 1).fill(player.other);
+  league[me] = player.me;
+  league[rival] = player.rival;
 
-  return result;
+  return league;
 }
 
-solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4]);
+function startLeague(total, league) {
+  let count = 0;
+  if (total === 1) return count;
+
+  const nextLeague = [false];
+  count++;
+  for (let i = 1; i <= total; i += 2) {
+    if (league[i] === league[i + 1]) {
+      nextLeague.push(league[i]);
+      continue;
+    }
+
+    switch (league[i]) {
+      case player.me: {
+        if (league[i + 1] === player.rival) {
+          return count;
+        }
+        nextLeague.push(league[i]);
+        break;
+      }
+      case player.rival: {
+        if (league[i + 1] === player.me) {
+          return count;
+        }
+        nextLeague.push(league[i]);
+        break;
+      }
+      default: {
+        nextLeague.push(league[i + 1]);
+      }
+    }
+  }
+
+  count += startLeague(total / 2, nextLeague);
+
+  return count;
+}
+
+console.log(solution(8, 4, 7));
